@@ -14,8 +14,7 @@ def findARestaurant(mealType, location):
            % (Foursquare_CLIENT_ID, Foursquare_CLIENT_SECRET, latitude, longitude, mealType))
     h = httplib2.Http()
     response, content = h.request(url, "GET")
-    response_json = json.loads(content)
-
+    response_json = json.loads(content, encoding="UTF-8")
     if response_json['response']['venues']:
         restaurant = response_json['response']['venues'][0]
         restaurant_name = restaurant['name']
@@ -25,10 +24,11 @@ def findARestaurant(mealType, location):
         for i in restaurant_address:
             address += i + " "
         restaurant_address = address
+
         url = ('https://api.foursquare.com/v2/venues/%s/photos?client_id=%s&client_secret=%s&v=20150603'
                % (venue_id, Foursquare_CLIENT_ID, Foursquare_CLIENT_SECRET))
         response, content = h.request(url, "GET")
-        imgInfo_json = json.loads(content)
+        imgInfo_json = json.loads(content, encoding="UTF-8")
         if imgInfo_json['response']['photos']['items']:
             firstpic = imgInfo_json['response']['photos']['items'][0]
             prefix = firstpic['prefix']
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     findARestaurant("Pizza", "Tokyo, Japan")
     findARestaurant("Tacos", "Jakarta, Indonesia")
     findARestaurant("Tapas", "Maputo, Mozambique")
-    findARestaurant("Falafel", "Cairo, Egypt")
+    #findARestaurant("Falafel", "Cairo, Egypt")
     findARestaurant("Spaghetti", "New Delhi, India")
     findARestaurant("Cappuccino", "Geneva, Switzerland")
     findARestaurant("Sushi", "Los Angeles, California")
