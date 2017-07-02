@@ -12,7 +12,7 @@ Foursquare_CLIENT_SECRET = "HBEQC1TILOBCAHSBEC020AQPP2VRCZVWFXAPB1L1LS4O2VJW"
 def findARestaurant(mealType, location):
     latitude, longitude = getGeocodeLocation(location)
     url = ('https://api.foursquare.com/v2/venues/search?client_id=%s&client_secret=%s&ll=%s,%s&query=%s&v=20160601' % (
-    Foursquare_CLIENT_ID, Foursquare_CLIENT_SECRET, latitude, longitude, mealType))
+        Foursquare_CLIENT_ID, Foursquare_CLIENT_SECRET, latitude, longitude, mealType))
     h = httplib2.Http()
     response, content = h.request(url)
     response_json = json.loads(content)
@@ -32,7 +32,7 @@ def findARestaurant(mealType, location):
         print("Restaurant Name: %s" % restaurantInfo['name'])
         print("Restaurant Address: %s" % restaurantInfo['address'])
         print("Image: %s \n" % restaurantInfo['image'])
-        return restaurantInfo
+        return json.dumps(restaurantInfo)
     else:
         print("No Restaurants Found for %s" % location)
         return "No Restaurants Found"
@@ -41,7 +41,7 @@ def findARestaurant(mealType, location):
 def getRestaurantImageURL(venue_id):
     h = httplib2.Http()
     url = ('https://api.foursquare.com/v2/venues/%s/photos?client_id=%s&client_secret=%s&v=20150603' % (
-    venue_id, Foursquare_CLIENT_ID, Foursquare_CLIENT_SECRET))
+        venue_id, Foursquare_CLIENT_ID, Foursquare_CLIENT_SECRET))
     response, content = h.request(url, "GET")
     imgInfo_json = json.loads(content)
     if imgInfo_json['response']['photos']['items']:
