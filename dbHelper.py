@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 import json
 
 from mashup import findARestaurant
-from models import Restaurant,Base
+from models import Restaurant, Base
 
 engine = create_engine('sqlite:///restaurants.db')
 Base.metadata.bind = engine
