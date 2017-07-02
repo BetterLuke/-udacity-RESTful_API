@@ -24,10 +24,10 @@ def all_restaurants_handler():
         mealType = request.args.get('mealType', '')
         restaurantInfo = findARestaurant(location=location, mealType=mealType)
         if restaurantInfo != "No Restaurants Found":
-            restaurantJSON = json.loads(restaurantInfo)
-            restaurant_name = restaurantJSON['name']
-            restaurant_address = restaurantJSON['address']
-            restaurant_images = restaurantJSON['image']
+            restaurantItem = json.loads(restaurantInfo)
+            restaurant_name = restaurantItem['name']
+            restaurant_address = restaurantItem['address']
+            restaurant_images = restaurantItem['image']
             restaurant = Restaurant(restaurant_name=str(restaurant_name, 'utf-8'),
                                     restaurant_address=str(restaurant_address, 'utf-8'),
                                     restaurant_images=str(restaurant_images, 'utf-8'))
