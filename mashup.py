@@ -55,10 +55,10 @@ def getRestaurantImageURL(venue_id):
 
 
 if __name__ == '__main__':
+    findARestaurant("Falafel", "Cairo, Egypt")
     findARestaurant("Pizza", "Tokyo, Japan")
     findARestaurant("Tacos", "Jakarta, Indonesia")
     findARestaurant("Tapas", "Maputo, Mozambique")
-    # findARestaurant("Falafel", "Cairo, Egypt")
     findARestaurant("Spaghetti", "New Delhi, India")
     findARestaurant("Cappuccino", "Geneva, Switzerland")
     findARestaurant("Sushi", "Los Angeles, California")
