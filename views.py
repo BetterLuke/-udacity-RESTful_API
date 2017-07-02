@@ -37,12 +37,30 @@ def all_restaurants_handler():
             return jsonify(restaurant.serialize)
 
 
-@app.route('/restaurants/<int:id>', methods=['PUT', 'DELETE'])
+@app.route('/restaurants/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def restaurant_handler(id):
-    if request.method == 'PUT':
-        return "PUT restaurant_handler(%s)" % id
-    if request.method == 'DELETE':
-        return "DELETE restaurant_handler(%s)" % id
+    restaurant = session.query(Restaurant).filter_by(id=id).one()
+    if request.method == 'GET':
+        return jsonify(restaurant.serialize)
+    elif request.method == 'PUT':
+        address = request.args.get('address')
+        image = request.args.get('image')
+        name = request.args.get('name')
+        if address:
+            restaurant.restaurant_address = address
+        if image:
+            restaurant.restaurant_image = image
+        if name:
+            restaurant.restaurant_name = name
+        session.commit()
+        print("PUT restaurant_handler(%s)" % id)
+        return jsonify(restaurant=restaurant.serialize)
+    elif request.method == 'DELETE':
+        deletedItemInfo = restaurant.serialize
+        session.delete(restaurant)
+        session.commit()
+        print("DELETE restaurant_handler(%s)" % id)
+        return jsonify(deletedItemInfo)
 
 
 if __name__ == '__main__':
